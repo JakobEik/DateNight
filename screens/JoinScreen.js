@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, Button } from "react-native";
 const JoinScreen = (props) => {
   return (
     <View style={styles.screen}>
+      <Text>Hei, {this.props.navigation.state.params.nameOBJ}!</Text>
       <Text>Write in the code</Text>
       <Button
         style={styles.btn}
