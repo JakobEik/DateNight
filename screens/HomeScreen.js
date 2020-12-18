@@ -14,7 +14,9 @@ const HomeScreen = (props) => {
     <View>
       <Header title="DateNight" />
       <View style={styles.nameHolder}>
-        <Text style={{fontSize: 20}}>Please write your name</Text>
+        <Text style={{ fontSize: 20 }}>
+          Skriv navnet ditt så lenge det ikke er Mads
+        </Text>
         <TextInput
           style={styles.input}
           placeholder="Name here"
@@ -64,19 +66,19 @@ const styles = StyleSheet.create({
     marginTop: "3%",
   },
   nameHolder: {
-    alignItems: 'center',
-    marginTop: "3%"
+    alignItems: "center",
+    marginTop: "3%",
   },
   input: {
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
-    borderColor: '#009CE0',
+    borderColor: "#009CE0",
     marginTop: "2%",
     fontSize: 15,
     width: "50%",
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
