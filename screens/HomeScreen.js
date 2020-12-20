@@ -1,61 +1,69 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import Header from "../components/Header";
 import StartButton from "../components/StartButton";
 
-class HomeScreen extends Component {
-  static navigationOptions = {
-    title: "HomeScreen",
-  };
-  constructor(props) {
-    super(props);
-    this.state = {
-      userName: "",
-    };
-  }
-  send_data_create = () => {
-    this.props.navigation.navigate("Create", {
-      nameOBJ: this.state.userName,
-    });
-  };
-  send_data_join = () => {
-    this.props.navigation.navigate("Join", {
-      nameOBJ: this.state.userName,
-    });
-  };
-  
 
-  render() {
-    return (
-      <View>
-        <Header title="DateNight" />
-        <View style={styles.nameHolder}>
-          <Text style={{ fontSize: 20 }}>Please write your name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Name here"
-            onChangeText={(inputText) => this.setState({ userName: inputText })}
-          />
-        </View>
-        <View style={styles.text}>
-          <Text style={{ fontSize: 25 }}>Choose your date</Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <StartButton
-            onPress={this.send_data_create}
-          >
-            Create your own date
-          </StartButton>
-          <StartButton
-            onPress={this.send_data_join}
-          >
-            Join date
-          </StartButton>
-        </View>
-      </View>
-    );
+const HomeScreen = ({ navigation }) => {
+  const [userName, setUserName] = useState("");
+
+  const nameHandler = (inputText) => {
+    setUserName(inputText);
+  };
+
+  const invalidSubmit = () => {
+      Alert.alert('Skjerpings', 'Pls skriv navnet ditt først')
+
   }
-}
+  const validSubmit = () => {
+    navigation.navigate("Create", {
+      name: userName,
+    });
+  }
+  const checkSubmit = () => {
+    if (userName.length < 2) {
+      invalidSubmit();
+    }
+    else {
+      validSubmit()
+    }
+  }
+
+  return (
+    <View>
+      <Header title="DateNight" />
+      <View style={styles.nameHolder}>
+        <Text style={{ fontSize: 20 }}>Please write your name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Name here"
+          onChangeText={nameHandler}
+          value={userName}
+        />
+      </View>
+    
+      <View style={styles.text}>
+        <Text style={{ fontSize: 25 }}>Choose your date</Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <StartButton
+          onPress={checkSubmit}
+        >
+          Create your own date
+        </StartButton>
+        <StartButton
+          onPress={() => {
+            navigation.navigate("Join", {
+              name: username,
+            });
+          }}
+        >
+          Join date
+        </StartButton>
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   text: {
@@ -84,6 +92,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     borderColor: "#009CE0",
+    marginTop: "2%",
+    fontSize: 15,
+    width: "50%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  invalidInput: { 
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    borderColor: "#D32F2F",
     marginTop: "2%",
     fontSize: 15,
     width: "50%",
