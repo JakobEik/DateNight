@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { TextInput, HelperText } from "react-native";
 import Header from "../components/Header";
 import StartButton from "../components/StartButton";
 
@@ -12,8 +13,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const invalidSubmit = () => {
-      Alert.alert('Skjerpings', 'Pls skriv navnet ditt først')
-
+      userName.length < 2;
   }
   const validSubmit = () => {
     navigation.navigate("Create", {
@@ -35,11 +35,12 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.nameHolder}>
         <Text style={{ fontSize: 20 }}>Please write your name</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, {borderColor: userName.length > 1 ? "#009CE0" : "#B80000"}]}
           placeholder="Name here"
           onChangeText={nameHandler}
           value={userName}
         />
+        
       </View>
     
       <View style={styles.text}>
@@ -91,7 +92,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
-    borderColor: "#009CE0",
     marginTop: "2%",
     fontSize: 15,
     width: "50%",

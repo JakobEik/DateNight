@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginLeft: "7%",
     width: "24%",
-    height: 65,
+    height: 50,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -34,11 +34,3 @@ const styles = StyleSheet.create({
 
 export default TypeButton;
 
-/*
-({ pressed }) => [
-    {
-      backgroundColor: pressed
-        ? "#D32F2F"
-        : "#00BCD4"
-    }, styles.button]
-    */
