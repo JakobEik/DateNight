@@ -1,12 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const TypeButton = (props) => {
-
- 
   return (
-    <TouchableOpacity activeOpacity={0.2} onPress={props.onPress}>
-      <View style={styles.button}>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={props.onPress}
+      style={[styles.button, props.style]}
+    >
+      <View>
         <Text style={styles.buttonText}>{props.children}</Text>
       </View>
     </TouchableOpacity>
@@ -15,33 +17,28 @@ const TypeButton = (props) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#00BCD4",
     paddingVertical: 12,
-    paddingHorizontal: 10,
+    paddingHorizontal: 1,
     borderRadius: 25,
-    marginLeft: "17%",
-    width: '80%',
+    marginLeft: "7%",
+    width: "24%",
     height: 65,
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonText: {
-    color: "white",
+    color: "black",
     fontSize: 13,
   },
-  buttonPressed: {
-    backgroundColor: "#D32F2F",
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderRadius: 25,
-    marginLeft: "17%",
-    width: '80%',
-    height: 65,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-
 });
 
 export default TypeButton;
+
+/*
+({ pressed }) => [
+    {
+      backgroundColor: pressed
+        ? "#D32F2F"
+        : "#00BCD4"
+    }, styles.button]
+    */
