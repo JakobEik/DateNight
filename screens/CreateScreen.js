@@ -29,28 +29,14 @@ const CreateScreen = ({ navigation }) => {
     code: theCode,
   };
 
-  const informationSingleHandler = () => {
-    Alert.alert("Singel", "Daten for dere som skal møtes for første gang")
+  const informationTypeHandler = () => {
+    Alert.alert("Type", "Singel: Daten for dere som skal møtes for første gang. \n \nDama: Daten for dere allerede i et forhold som vil ha gnisten tilbake. \n \nGutta: Når gutta trenger en dag med gutta")
   }
 
-  const informationGFHandler = () => {
-    Alert.alert("Dama", "Daten for dere som allerede er sammen, men som trenger en kveld for å få tilbake gnisten i forholdet")
+  const informationBudgetHandler = () => {
+    Alert.alert("Budsjett", "Lavt: Daten for dere sliter med å få studentbudsjettet til å gå rundt. Men daten blir like bra! \n \nMiddels: For dere som nettopp har fått stipend og vil bruke det fornuftig. \n \nHøyt: Når pappa betaler")
   }
-
-  const informationBoysHandler = () => {
-    Alert.alert("Gutta", "Guttakvelden for dere som er gutta")
-  }
-  const informationLowHandler = () => {
-    Alert.alert("Lavt", "Daten for dere sliter med å få studentbudsjettet til å gå rundt. Men daten blir like bra!")
-  }
-  const informationMediumHandler = () => {
-    Alert.alert("Middels", "Daten for dere som nettopp har fått stipend fra lånekassen")
-  }
-  const informationHighHandler = () => {
-    Alert.alert("Ballers", "Daten for dere som har fått låne penger av foreldrene deres for å ha råd til en litt fin middag")
-  }
-
-
+ 
   const validation = () => {
     if (date.dateType == "" || date.budget == "") {
       Alert.alert("Obsobs", "Vennligst fyll ut alle feltene");
@@ -83,9 +69,6 @@ const CreateScreen = ({ navigation }) => {
         >
           Singel
         </TypeButton>
-        <View style={styles.informationBox}>
-        <ClearButton onPress={informationSingleHandler}>?</ClearButton>
-        </View>
         <TypeButton
           onPress={() => {
             setTypeOfDate("Dama");
@@ -96,9 +79,6 @@ const CreateScreen = ({ navigation }) => {
         >
           Dama
         </TypeButton>
-        <View style={styles.informationBox}>
-        <ClearButton onPress={informationGFHandler}>?</ClearButton>
-        </View>
         <TypeButton
           onPress={() => {
             setTypeOfDate("Gutta");
@@ -110,7 +90,7 @@ const CreateScreen = ({ navigation }) => {
           Gutta
         </TypeButton>
         <View style={styles.informationBox}>
-        <ClearButton onPress={informationBoysHandler}>?</ClearButton>
+        <ClearButton onPress={informationTypeHandler}>?</ClearButton>
         </View>
       </View>
       <View style={styles.textBudget}>
@@ -125,9 +105,6 @@ const CreateScreen = ({ navigation }) => {
         >
           Lavt
         </TypeButton>
-        <View style={styles.informationBox}>
-        <ClearButton onPress={informationLowHandler}>?</ClearButton>
-        </View>
         <TypeButton
           onPress={() => {
             setBudget("Medium");
@@ -138,9 +115,6 @@ const CreateScreen = ({ navigation }) => {
         >
           Middels
         </TypeButton>
-        <View style={styles.informationBox}>
-        <ClearButton onPress={informationMediumHandler}>?</ClearButton>
-        </View>
         <TypeButton
           onPress={() => {
             setBudget("High");
@@ -150,7 +124,7 @@ const CreateScreen = ({ navigation }) => {
           Ballers
         </TypeButton>
         <View style={styles.informationBox}>
-        <ClearButton onPress={informationHighHandler}>?</ClearButton>
+        <ClearButton onPress={informationBudgetHandler}>?</ClearButton>
         </View>
       </View>
       <View style={styles.textTime}>
@@ -205,7 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     marginTop: "5%",
-    marginRight: '10%'
+    marginRight: '1%'
   },
   budget: {
     flex: 1,
@@ -232,7 +206,7 @@ const styles = StyleSheet.create({
   },
   informationBox: {
     marginTop: '5%',
-    marginLeft: '1%'
+    marginLeft: '3%'
   }
 });
 
