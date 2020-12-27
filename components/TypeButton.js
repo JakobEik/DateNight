@@ -17,10 +17,10 @@ const TypeButton = (props) => {
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingHorizontal: 1,
-    borderRadius: 25,
-    marginLeft: "7%",
+    borderRadius: 22,
+    marginLeft: "3%",
     width: "24%",
     height: 50,
     alignItems: "center",

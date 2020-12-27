@@ -1,16 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
-const JoinScreen = (props) => {
+const JoinScreen = ({navigation}) => {
+  const name = navigation.state.params.name;
   return (
     <View style={styles.screen}>
-      <Text>Hei, {this.props.navigation.state.params.nameOBJ}!</Text>
+      <Text>Hei, {name}!</Text>
       <Text>Write in the code</Text>
       <Button
         style={styles.btn}
         title="Lets go"
         onPress={() => {
-          props.navigation.navigate("Lobby");
+          navigation.navigate("Lobby");
         }}
       />
     </View>

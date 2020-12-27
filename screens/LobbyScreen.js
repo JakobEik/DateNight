@@ -7,7 +7,7 @@ const LobbyScreen = ({navigation}) => {
   const code = navigation.state.params.code;
   const name = navigation.state.params.name;
   return (
-    <View>
+    <View style={{backgroundColor: '#B9FBE0'}}>
     <View style={styles.header}>
       <Text style={{fontSize: 25, fontWeight: 'bold'}}>Kveldens date</Text>
       <Text style={{fontSize: 20, marginTop: '3%'}}>{code}</Text>

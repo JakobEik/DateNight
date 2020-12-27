@@ -1,27 +1,36 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { TextInput, HelperText } from "react-native";
+import React, { useState, useRef } from "react";
+import { View, Text, StyleSheet, Animated, StatusBar, Alert } from "react-native";
+import { TextInput } from "react-native";
 import Header from "../components/Header";
 import StartButton from "../components/StartButton";
+import ClearButton from '../components/ClearButton';
 
 
 const HomeScreen = ({ navigation }) => {
   const [userName, setUserName] = useState("");
+  const [isPressed, setIsPressed] = useState("");
 
   const nameHandler = (inputText) => {
     setUserName(inputText);
   };
 
+  const clearField = () => {
+    textInput.clear()
+    setUserName("")
+  }
+
   const invalidSubmit = () => {
-      userName.length < 2;
+      setIsPressed("Pressed");
+      clearField()
   }
   const validSubmit = () => {
     navigation.navigate("Create", {
       name: userName,
     });
+    setIsPressed("Not Pressed")
   }
   const checkSubmit = () => {
-    if (userName.length < 2) {
+    if (userName.length < 2 || userName == '') {
       invalidSubmit();
     }
     else {
@@ -30,47 +39,60 @@ const HomeScreen = ({ navigation }) => {
   }
 
   return (
-    <View>
+    <View style={{backgroundColor: '#B9FBE0', height: '100%'}}>
       <Header title="DateNight" />
       <View style={styles.nameHolder}>
-        <Text style={{ fontSize: 20 }}>Please write your name</Text>
+        <Text style={{ fontSize: 20 }}>Hei! Skriv inn navnet ditt:</Text>
         <TextInput
-          style={[styles.input, {borderColor: userName.length > 1 ? "#009CE0" : "#B80000"}]}
+          style={[styles.input, {borderColor: isPressed == 'Pressed' && userName.length < 2 ? "#FF0017" : "#004DCF"}]}
           placeholder="Name here"
           onChangeText={nameHandler}
           value={userName}
+          ref={input => {textInput = input}}
         />
-        
+        <View style={styles.clearButton}>
+        <ClearButton onPress={clearField}>x</ClearButton>
+        </View>
       </View>
-    
       <View style={styles.text}>
-        <Text style={{ fontSize: 25 }}>Choose your date</Text>
+        <Text style={{color: isPressed == 'Pressed' && userName.length < 2 ? "#FF0017" : '#B9FBE0' }}>Vennligst skriv navnet ditt</Text>
+      </View>
+      <View style={styles.textBtns}>
+        <Text style={{ fontSize: 25 }}>Skal du lage eller bli med på date?</Text>
       </View>
       <View style={styles.buttonContainer}>
         <StartButton
           onPress={checkSubmit}
         >
-          Create your own date
+          Lage min egen date
         </StartButton>
         <StartButton
           onPress={() => {
             navigation.navigate("Join", {
-              name: username,
+              name: userName,
             });
           }}
         >
-          Join date
+          Bli med på date
         </StartButton>
       </View>
     </View>
   );
 };
 
+
 const styles = StyleSheet.create({
   text: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "15%",
+    marginBottom: '4%',
+    marginTop: '3%'
+  },
+  textBtns: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: '1%',
+    marginTop: '7%'
   },
   screen: {
     flex: 1,
@@ -82,7 +104,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "3%",
+    marginTop: "1%",
   },
   nameHolder: {
     alignItems: "center",
@@ -98,18 +120,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  clearButton: {
+    marginLeft: '40%',
+    marginTop: '-8%',
+    color: '#004DCF'
 
-  invalidInput: { 
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-    borderColor: "#D32F2F",
-    marginTop: "2%",
-    fontSize: 15,
-    width: "50%",
-    alignItems: "center",
-    justifyContent: "center",
   },
+
+  
 });
 
 export default HomeScreen;

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet} from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import StartButton from "../components/StartButton";
 import TypeButton from "../components/TypeButton";
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from "@react-native-picker/picker";
+import ClearButton from '../components/ClearButton';
 
 const CreateScreen = ({ navigation }) => {
   const name = navigation.state.params.name;
@@ -10,37 +11,66 @@ const CreateScreen = ({ navigation }) => {
   const [budget, setBudget] = useState("");
   const [startTime, setStartTime] = useState("17:00");
 
-
   const randomCode = () => {
     let text = "";
-    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ0123456789";
     for (let i = 0; i < 5; i++)
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     return text;
-  }
+  };
 
   const theCode = randomCode();
 
-  const date =  {
+  const date = {
     name: name,
     dateType: typeOfDate,
     budget: budget,
     startTime: startTime,
-    code: theCode 
+    code: theCode,
+  };
+
+  const informationSingleHandler = () => {
+    Alert.alert("Singel", "Daten for dere som skal møtes for første gang")
   }
 
-  const whenPressed = () => {
-    navigation.navigate('Lobby', {name:name, code:theCode})
-    console.log(date)
+  const informationGFHandler = () => {
+    Alert.alert("Dama", "Daten for dere som allerede er sammen, men som trenger en kveld for å få tilbake gnisten i forholdet")
   }
-  
+
+  const informationBoysHandler = () => {
+    Alert.alert("Gutta", "Guttakvelden for dere som er gutta")
+  }
+  const informationLowHandler = () => {
+    Alert.alert("Lavt", "Daten for dere sliter med å få studentbudsjettet til å gå rundt. Men daten blir like bra!")
+  }
+  const informationMediumHandler = () => {
+    Alert.alert("Middels", "Daten for dere som nettopp har fått stipend fra lånekassen")
+  }
+  const informationHighHandler = () => {
+    Alert.alert("Ballers", "Daten for dere som har fått låne penger av foreldrene deres for å ha råd til en litt fin middag")
+  }
+
+
+  const validation = () => {
+    if (date.dateType == "" || date.budget == "") {
+      Alert.alert("Obsobs", "Vennligst fyll ut alle feltene");
+    } else {
+      navigation.navigate("Lobby", { name: name, code: theCode });
+      console.log(date);
+    }
+  };
+
+  const whenPressed = () => {
+    validation();
+  };
+
   return (
-    <View>
+    <View style={{backgroundColor: '#B9FBE0'}}>
       <View style={styles.title}>
-        <Text style={{ fontSize: 25 }}>Lag daten din her {name}:</Text>
+        <Text style={{ fontSize: 25 }}>Lag daten din her {name}</Text>
       </View>
       <View style={styles.text}>
-  <Text style={{fontSize: 20}}>Velg hva slags date du skal på:</Text>
+        <Text style={{ fontSize: 20 }}>Velg hva slags date du skal på:</Text>
       </View>
       <View style={styles.types}>
         <TypeButton
@@ -53,6 +83,9 @@ const CreateScreen = ({ navigation }) => {
         >
           Singel
         </TypeButton>
+        <View style={styles.informationBox}>
+        <ClearButton onPress={informationSingleHandler}>?</ClearButton>
+        </View>
         <TypeButton
           onPress={() => {
             setTypeOfDate("Dama");
@@ -63,6 +96,9 @@ const CreateScreen = ({ navigation }) => {
         >
           Dama
         </TypeButton>
+        <View style={styles.informationBox}>
+        <ClearButton onPress={informationGFHandler}>?</ClearButton>
+        </View>
         <TypeButton
           onPress={() => {
             setTypeOfDate("Gutta");
@@ -73,9 +109,12 @@ const CreateScreen = ({ navigation }) => {
         >
           Gutta
         </TypeButton>
+        <View style={styles.informationBox}>
+        <ClearButton onPress={informationBoysHandler}>?</ClearButton>
+        </View>
       </View>
       <View style={styles.textBudget}>
-      <Text style={{fontSize: 20}}>Velg budsjett:</Text>
+        <Text style={{ fontSize: 20 }}>Velg budsjett:</Text>
       </View>
       <View style={styles.budget}>
         <TypeButton
@@ -86,6 +125,9 @@ const CreateScreen = ({ navigation }) => {
         >
           Lavt
         </TypeButton>
+        <View style={styles.informationBox}>
+        <ClearButton onPress={informationLowHandler}>?</ClearButton>
+        </View>
         <TypeButton
           onPress={() => {
             setBudget("Medium");
@@ -96,6 +138,9 @@ const CreateScreen = ({ navigation }) => {
         >
           Middels
         </TypeButton>
+        <View style={styles.informationBox}>
+        <ClearButton onPress={informationMediumHandler}>?</ClearButton>
+        </View>
         <TypeButton
           onPress={() => {
             setBudget("High");
@@ -104,38 +149,36 @@ const CreateScreen = ({ navigation }) => {
         >
           Ballers
         </TypeButton>
+        <View style={styles.informationBox}>
+        <ClearButton onPress={informationHighHandler}>?</ClearButton>
+        </View>
       </View>
       <View style={styles.textTime}>
-        <Text style={{fontSize: 20}}>Velg startstidspunkt:</Text>
+        <Text style={{ fontSize: 20 }}>Velg startstidspunkt:</Text>
       </View>
-
-
+          
       <View style={styles.container}>
-      <Picker
-        selectedValue={startTime}
-        style={{ height: 50, width: 150 }}
-        onValueChange={(itemValue) => setStartTime(itemValue)}
-      >
-        <Picker.Item label="17:00" value="17:00" />
-        <Picker.Item label="17:30" value="17:30" />
-        <Picker.Item label="18:00" value="18:00" />
-        <Picker.Item label="18:30" value="18:30" />
-        <Picker.Item label="19:00" value="19:00" />
-        <Picker.Item label="19:30" value="19:30" />
-        <Picker.Item label="20:00" value="20:00" />
-        <Picker.Item label="20:30" value="20:30" />
-        <Picker.Item label="21:00" value="21:00" />
-      </Picker>
-    </View>
-      <View style={styles.buttonContainer}>
-        <StartButton
-          title="Lets go"
-          onPress={whenPressed}
+        <Picker
+          selectedValue={startTime}
+          style={{ height: 50, width: 150 }}
+          onValueChange={(itemValue) => setStartTime(itemValue)}
         >
+          <Picker.Item label="17:00" value="17:00" />
+          <Picker.Item label="17:30" value="17:30" />
+          <Picker.Item label="18:00" value="18:00" />
+          <Picker.Item label="18:30" value="18:30" />
+          <Picker.Item label="19:00" value="19:00" />
+          <Picker.Item label="19:30" value="19:30" />
+          <Picker.Item label="20:00" value="20:00" />
+          <Picker.Item label="20:30" value="20:30" />
+          <Picker.Item label="21:00" value="21:00" />
+        </Picker>
+      </View>
+      <View style={styles.buttonContainer}>
+        <StartButton title="Lets go" onPress={whenPressed}>
           LETS GO
         </StartButton>
       </View>
-
     </View>
   );
 };
@@ -145,46 +188,51 @@ const styles = StyleSheet.create({
     marginTop: "2%",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: '4%'
+    marginBottom: "4%",
   },
   buttonContainer: {
     marginBottom: "7%",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "1%",
+    marginTop: "1%"
   },
   text: {
-    justifyContent: 'center',
-    margin: '3%',
-    alignItems: 'center'
+    justifyContent: "center",
+    margin: "3%",
+    alignItems: "center",
   },
   types: {
     flex: 1,
     flexDirection: "row",
     marginTop: "5%",
+    marginRight: '10%'
   },
   budget: {
     flex: 1,
-    flexDirection: 'row',
-    marginBottom: '10%',
-    marginTop: '-18%'
+    flexDirection: "row",
+    marginBottom: "10%",
+    marginTop: "-18%",
   },
   textBudget: {
-    justifyContent: 'center',
-    marginTop: '18%',
-    marginBottom: '23%',
-    alignItems: 'center'
+    justifyContent: "center",
+    marginTop: "18%",
+    marginBottom: "23%",
+    alignItems: "center",
   },
   textTime: {
-    justifyContent: 'center',
-    marginTop: '10%',
-    marginBottom: '-7%',
-    alignItems: 'center'
+    justifyContent: "center",
+    marginTop: "10%",
+    marginBottom: "-7%",
+    alignItems: "center",
   },
   container: {
     flex: 1,
-    marginBottom: '50%',
-    alignItems: "center"
+    marginBottom: "50%",
+    alignItems: "center",
+  },
+  informationBox: {
+    marginTop: '5%',
+    marginLeft: '1%'
   }
 });
 
