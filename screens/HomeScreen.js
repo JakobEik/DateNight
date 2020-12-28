@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { View, Text, StyleSheet, Animated, StatusBar, Alert } from "react-native";
 import { TextInput } from "react-native";
 import Header from "../components/Header";
@@ -9,33 +9,46 @@ import ClearButton from '../components/ClearButton';
 const HomeScreen = ({ navigation }) => {
   const [userName, setUserName] = useState("");
   const [isPressed, setIsPressed] = useState("");
+  
+  let createJoin = "";
 
   const nameHandler = (inputText) => {
     setUserName(inputText);
   };
+  const validSubmit = () => {
+  navigation.navigate(createJoin, {
+    name: userName,
+  });
+    setIsPressed("Not Pressed")
+  }
 
   const clearField = () => {
     textInput.clear()
     setUserName("")
-  }
+    }
 
   const invalidSubmit = () => {
-      setIsPressed("Pressed");
-      clearField()
-  }
-  const validSubmit = () => {
-    navigation.navigate("Create", {
-      name: userName,
-    });
-    setIsPressed("Not Pressed")
-  }
-  const checkSubmit = () => {
+    setIsPressed("Pressed");
+    clearField()
+    }
+
+  const checkCreateSubmit = () => {
+    createJoin = 'Create'
+    if (userName.length < 2 || userName == '') {
+    invalidSubmit();
+      }
+    else {
+      validSubmit()
+      }
+    }
+  const checkJoinSubmit = () => {
+    createJoin = "Join";
     if (userName.length < 2 || userName == '') {
       invalidSubmit();
     }
     else {
       validSubmit()
-    }
+      }
   }
 
   return (
@@ -62,16 +75,12 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <View style={styles.buttonContainer}>
         <StartButton
-          onPress={checkSubmit}
+          onPress={checkCreateSubmit}
         >
           Lage min egen date
         </StartButton>
         <StartButton
-          onPress={() => {
-            navigation.navigate("Join", {
-              name: userName,
-            });
-          }}
+          onPress={checkJoinSubmit}
         >
           Bli med på date
         </StartButton>

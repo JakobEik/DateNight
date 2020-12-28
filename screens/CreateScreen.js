@@ -6,7 +6,7 @@ import { Picker } from "@react-native-picker/picker";
 import ClearButton from '../components/ClearButton';
 
 const CreateScreen = ({ navigation }) => {
-  const name = navigation.state.params.name;
+  const creator = navigation.state.params.name;
   const [typeOfDate, setTypeOfDate] = useState("");
   const [budget, setBudget] = useState("");
   const [startTime, setStartTime] = useState("17:00");
@@ -22,7 +22,7 @@ const CreateScreen = ({ navigation }) => {
   const theCode = randomCode();
 
   const date = {
-    name: name,
+    creator: creator,
     dateType: typeOfDate,
     budget: budget,
     startTime: startTime,
