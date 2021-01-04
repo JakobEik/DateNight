@@ -56,6 +56,7 @@ const HomeScreen = ({ navigation }) => {
       <Header title="DateNight" />
       <View style={styles.nameHolder}>
         <Text style={{ fontSize: 20 }}>Hei! Skriv inn navnet ditt:</Text>
+
         <TextInput
           style={[styles.input, {borderColor: isPressed == 'Pressed' && userName.length < 2 ? "#FF0017" : "#004DCF"}]}
           placeholder="Name here"
@@ -128,11 +129,13 @@ const styles = StyleSheet.create({
     width: "50%",
     alignItems: "center",
     justifyContent: "center",
+
   },
   clearButton: {
     marginLeft: '40%',
     marginTop: '-8%',
     color: '#004DCF'
+
 
   },
 
