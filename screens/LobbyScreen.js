@@ -1,17 +1,28 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
+import StartButton from "../components/StartButton";
 
-const LobbyScreen = (props) => {
+
+const LobbyScreen = ({navigation}) => {
+  const code = navigation.state.params.code;
+  const name = navigation.state.params.name;
   return (
+    <View style={{backgroundColor: '#B9FBE0'}}>
+    <View style={styles.header}>
+      <Text style={{fontSize: 25, fontWeight: 'bold'}}>Kveldens date</Text>
+      <Text style={{fontSize: 20, marginTop: '3%'}}>{code}</Text>
+    </View>
     <View style={styles.screen}>
-      <Text>Choose your date</Text>
-      <Button
-        style={styles.btn}
-        title="FUCK ME UP BABY"
-        onPress={() => {
-          props.navigation.navigate({ routename: "CreateScreen" });
-        }}
-      />
+      <View style={styles.participants}>
+      <Text style={{fontSize: 25}}>Deltakere:</Text>
+      </View>
+      <View style={styles.names}>
+      <Text style={{fontSize: 25}}>{name}</Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <StartButton>Lets go</StartButton>
+      </View>
+    </View>
     </View>
   );
 };
@@ -23,6 +34,29 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    buttonContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: '110%'
+    },
+    header: {
+      width: '100%',
+      height: 95,
+      backgroundColor: '#03A9F4',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    participants: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: '2%'
+    },
+    names: {
+      
+      flexDirection: 'row',
+      marginTop: '10%',
+      marginLeft: '5%'
+    }
   });
 
 export default LobbyScreen;
