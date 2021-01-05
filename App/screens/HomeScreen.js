@@ -1,76 +1,80 @@
 import React, { useState } from "react";
-import { Button, View, Text, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { TextInput } from "react-native";
-import StartButton from "../components/StartButton";
 
-import colors from "../config/colors";
+import StartButton from "../components/StartButton";
+import Container from "../components/Container";
 
 const HomeScreen = ({ navigation }) => {
   const [userName, setUserName] = useState("");
   const [isPressed, setIsPressed] = useState(false);
 
-  let createJoin = "";
-
   const validSubmit = () => {
-    navigation.navigate(createJoin, {
-      name: userName,
+    console.log(userName);
+    navigation.navigate("Create", {
+      creator: userName,
     });
     setIsPressed(false);
   };
 
-  const clearField = () => {
-    textInput.clear();
+  const invalidSubmit = () => {
+    setIsPressed(true);
     setUserName("");
   };
 
-  const invalidSubmit = () => {
-    setIsPressed(true);
-    clearField();
-  };
-
   const checkCreateSubmit = () => {
-    createJoin = "Create";
-    if (userName.length < 2 || userName == "") {
+    if (userName.length < 1 || userName == "") {
       invalidSubmit();
     } else {
-      validSubmit();
+      navigation.navigate("Create", {
+        creator: userName,
+      });
+      setIsPressed(false);
     }
   };
   const checkJoinSubmit = () => {
-    createJoin = "Join";
     if (userName.length < 2 || userName == "") {
       invalidSubmit();
     } else {
-      validSubmit();
+      navigation.navigate("Lobby", {
+        name: userName,
+        // code er bare placeholder foreløpig
+        code: "SKFHE",
+      });
+      setIsPressed(false);
     }
   };
 
   return (
-    <ImageBackground source={require("../assets/photos/bulbBackground.jpeg")} style={styles.background}>
-      <View style={styles.textView}>
-        <TextInput
-          style={[styles.textInput, { borderColor: isPressed == true && userName.length < 2 ? "#FF0017" : "#004DCF" }]}
-          placeholder="Navn"
-          onChangeText={(input) => setUserName(input)}
-          value={userName}
-          clearButtonMode="while-editing"
-          maxLength={20}
-          textAlign="center"
-          textContentType="nickname"
-          ref={(input) => {
-            textInput = input;
-          }}
-        />
+    <Container>
+      <View style={styles.background}>
+        <View>
+          <Text>Logo placeholder</Text>
+        </View>
+
+        <View style={styles.textView}>
+          <TextInput
+            style={[
+              styles.textInput,
+              { borderColor: isPressed == true && userName.length < 2 ? "#FF0017" : "#004DCF" },
+            ]}
+            placeholder="Navn"
+            onChangeText={(input) => setUserName(input)}
+            value={userName}
+            clearButtonMode="while-editing"
+            maxLength={20}
+            textAlign="center"
+            textContentType="nickname"
+          />
+        </View>
+
+        <StartButton style={styles.btnCreate} onPress={checkCreateSubmit}>
+          Lag en date
+        </StartButton>
+
+        <StartButton onPress={checkJoinSubmit}>Bli med på date</StartButton>
       </View>
-
-      <StartButton style={styles.btnCreate} onPress={checkCreateSubmit}>
-        Lag en date
-      </StartButton>
-
-      <StartButton style={styles.btnJoin} onPress={checkJoinSubmit}>
-        Bli med på date
-      </StartButton>
-    </ImageBackground>
+    </Container>
   );
 };
 
@@ -82,23 +86,21 @@ const styles = StyleSheet.create({
   },
 
   btnCreate: {
-    marginTop: "50%",
+    marginTop: "0%",
   },
-
-  btnJoin: {},
 
   textInput: {
     borderWidth: 1,
     width: "50%",
     height: 30,
-    borderRadius: 5,
+    borderRadius: 15,
     fontSize: 20,
   },
 
   textView: {
     width: "100%",
     alignItems: "center",
-    margin: "25%",
+    margin: "0%",
   },
 });
 
