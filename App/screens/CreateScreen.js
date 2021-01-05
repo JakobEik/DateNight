@@ -4,18 +4,18 @@ import StartButton from "../components/StartButton";
 import TypeButton from "../components/TypeButton";
 import { Picker } from "@react-native-picker/picker";
 import ClearButton from "../components/ClearButton";
+import Container from "../components/Container";
 
-const CreateScreen = ({ navigation }) => {
-  const creator = navigation.state.params.name;
+const CreateScreen = ({ route, navigation }) => {
+  const { creator } = route.params;
   const [typeOfDate, setTypeOfDate] = useState("");
   const [budget, setBudget] = useState("");
   const [startTime, setStartTime] = useState("17:00");
 
   const randomCode = () => {
     let text = "";
-    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ0123456789";
-    for (let i = 0; i < 5; i++)
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    for (let i = 0; i < 5; i++) text += possible.charAt(Math.floor(Math.random() * possible.length));
     return text;
   };
 
@@ -57,9 +57,10 @@ const CreateScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{ backgroundColor: "#B9FBE0" }}>
+    <Container>
+      {/** den Viewen her er overflødig*/}
       <View style={styles.title}>
-        <Text style={{ fontSize: 25 }}>Lag daten din her {creator}</Text>
+        <Text style={{ fontSize: 25 }}></Text>
       </View>
       <View style={styles.text}>
         <Text style={{ fontSize: 20 }}>Velg hva slags date du skal på:</Text>
@@ -136,7 +137,6 @@ const CreateScreen = ({ navigation }) => {
       <View style={styles.textTime}>
         <Text style={{ fontSize: 20 }}>Velg startstidspunkt:</Text>
       </View>
-
       <View style={styles.container}>
         <Picker
           selectedValue={startTime}
@@ -159,7 +159,7 @@ const CreateScreen = ({ navigation }) => {
           LETS GO
         </StartButton>
       </View>
-    </View>
+    </Container>
   );
 };
 
