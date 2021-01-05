@@ -5,7 +5,7 @@ import StartButton from "../components/StartButton";
 
 const LobbyScreen = ({navigation}) => {
   const code = navigation.state.params.code;
-  const name = navigation.state.params.name;
+  const name = navigation.state.params.creator;
   return (
     <View style={{backgroundColor: '#B9FBE0'}}>
     <View style={styles.header}>

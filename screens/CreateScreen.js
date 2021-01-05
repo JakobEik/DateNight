@@ -41,7 +41,7 @@ const CreateScreen = ({ navigation }) => {
     if (date.dateType == "" || date.budget == "") {
       Alert.alert("Obsobs", "Vennligst fyll ut alle feltene");
     } else {
-      navigation.navigate("Lobby", { name: name, code: theCode });
+      navigation.navigate("Lobby", { creator: creator, code: theCode });
       console.log(date);
     }
   };
@@ -53,7 +53,7 @@ const CreateScreen = ({ navigation }) => {
   return (
     <View style={{backgroundColor: '#B9FBE0'}}>
       <View style={styles.title}>
-        <Text style={{ fontSize: 25 }}>Lag daten din her {name}</Text>
+        <Text style={{ fontSize: 25 }}>Lag daten din her {creator}</Text>
       </View>
       <View style={styles.text}>
         <Text style={{ fontSize: 20 }}>Velg hva slags date du skal på:</Text>
