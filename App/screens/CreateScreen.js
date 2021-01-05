@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Alert } from "react-native";
 import StartButton from "../components/StartButton";
 import TypeButton from "../components/TypeButton";
 import { Picker } from "@react-native-picker/picker";
-import ClearButton from '../components/ClearButton';
+import ClearButton from "../components/ClearButton";
 
 const CreateScreen = ({ navigation }) => {
   const creator = navigation.state.params.name;
@@ -30,18 +30,24 @@ const CreateScreen = ({ navigation }) => {
   };
 
   const informationTypeHandler = () => {
-    Alert.alert("Type", "Singel: Daten for dere som skal møtes for første gang. \n \nDama: Daten for dere allerede i et forhold som vil ha gnisten tilbake. \n \nGutta: Når gutta trenger en dag med gutta")
-  }
+    Alert.alert(
+      "Type",
+      "Singel: Daten for dere som skal møtes for første gang. \n \nDama: Daten for dere allerede i et forhold som vil ha gnisten tilbake. \n \nGutta: Når gutta trenger en dag med gutta"
+    );
+  };
 
   const informationBudgetHandler = () => {
-    Alert.alert("Budsjett", "Lavt: Daten for dere sliter med å få studentbudsjettet til å gå rundt. Men daten blir like bra! \n \nMiddels: For dere som nettopp har fått stipend og vil bruke det fornuftig. \n \nHøyt: Når pappa betaler")
-  }
- 
+    Alert.alert(
+      "Budsjett",
+      "Lavt: Daten for dere sliter med å få studentbudsjettet til å gå rundt. Men daten blir like bra! \n \nMiddels: For dere som nettopp har fått stipend og vil bruke det fornuftig. \n \nHøyt: Når pappa betaler"
+    );
+  };
+
   const validation = () => {
     if (date.dateType == "" || date.budget == "") {
       Alert.alert("Obsobs", "Vennligst fyll ut alle feltene");
     } else {
-      navigation.navigate("Lobby", { name: name, code: theCode });
+      navigation.navigate("Lobby", { name: creator, code: theCode });
       console.log(date);
     }
   };
@@ -51,9 +57,9 @@ const CreateScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{backgroundColor: '#B9FBE0'}}>
+    <View style={{ backgroundColor: "#B9FBE0" }}>
       <View style={styles.title}>
-        <Text style={{ fontSize: 25 }}>Lag daten din her {name}</Text>
+        <Text style={{ fontSize: 25 }}>Lag daten din her {creator}</Text>
       </View>
       <View style={styles.text}>
         <Text style={{ fontSize: 20 }}>Velg hva slags date du skal på:</Text>
@@ -90,7 +96,7 @@ const CreateScreen = ({ navigation }) => {
           Gutta
         </TypeButton>
         <View style={styles.informationBox}>
-        <ClearButton onPress={informationTypeHandler}>?</ClearButton>
+          <ClearButton onPress={informationTypeHandler}>?</ClearButton>
         </View>
       </View>
       <View style={styles.textBudget}>
@@ -124,13 +130,13 @@ const CreateScreen = ({ navigation }) => {
           Ballers
         </TypeButton>
         <View style={styles.informationBox}>
-        <ClearButton onPress={informationBudgetHandler}>?</ClearButton>
+          <ClearButton onPress={informationBudgetHandler}>?</ClearButton>
         </View>
       </View>
       <View style={styles.textTime}>
         <Text style={{ fontSize: 20 }}>Velg startstidspunkt:</Text>
       </View>
-          
+
       <View style={styles.container}>
         <Picker
           selectedValue={startTime}
@@ -168,7 +174,7 @@ const styles = StyleSheet.create({
     marginBottom: "7%",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "1%"
+    marginTop: "1%",
   },
   text: {
     justifyContent: "center",
@@ -179,7 +185,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     marginTop: "5%",
-    marginRight: '1%'
+    marginRight: "1%",
   },
   budget: {
     flex: 1,
@@ -205,9 +211,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   informationBox: {
-    marginTop: '5%',
-    marginLeft: '3%'
-  }
+    marginTop: "5%",
+    marginLeft: "3%",
+  },
 });
 
 export default CreateScreen;
