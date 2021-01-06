@@ -15,7 +15,7 @@ const MainButton = (props) => {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.darkest,
-    borderRadius: 25,
+    borderRadius: 35,
     width: 250,
     height: 65,
     alignItems: "center",

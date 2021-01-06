@@ -28,11 +28,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  style: {
-    backgroundColor: "transparent",
-    borderTopWidth: 0,
-    position: "absolute",
-  },
-});
