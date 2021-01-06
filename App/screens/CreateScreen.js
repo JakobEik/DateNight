@@ -63,12 +63,12 @@ const CreateScreen = ({ route, navigation }) => {
         <View style={styles.types}>
           <TypeButton
             onPress={() => {setTypeOfDate("Singel");}}
-            style={{backgroundColor: typeOfDate == "Singel" ? colors.light : colors.red}}
+            style={{backgroundColor: typeOfDate == "Singel" ? colors.red : colors.blue}}
             title="Random"
           />
           <TypeButton 
             onPress={() => {setTypeOfDate("Dama");}}
-            style={{backgroundColor: typeOfDate == "Dama" ? colors.light : colors.red}}
+            style={{backgroundColor: typeOfDate == "Dama" ? colors.red : colors.blue}}
             title="Kjæresten"
           />
       </View>
