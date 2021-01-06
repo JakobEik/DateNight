@@ -29,22 +29,8 @@ const CreateScreen = ({ route, navigation }) => {
     code: theCode,
   };
 
-  const informationTypeHandler = () => {
-    Alert.alert(
-      "Type",
-      "Singel: Daten for dere som skal møtes for første gang. \n \nDama: Daten for dere allerede i et forhold som vil ha gnisten tilbake. \n \nGutta: Når gutta trenger en dag med gutta"
-    );
-  };
-
-  const informationBudgetHandler = () => {
-    Alert.alert(
-      "Budsjett",
-      "Lavt: Daten for dere sliter med å få studentbudsjettet til å gå rundt. Men daten blir like bra! \n \nMiddels: For dere som nettopp har fått stipend og vil bruke det fornuftig. \n \nHøyt: Når pappa betaler"
-    );
-  };
-
   const whenPressed = () => {
-    if (date.dateType == "" || date.budget == "") {
+    if (date.dateType == "") {
       Alert.alert("Obsobs", "Vennligst fyll ut alle feltene");
     } else {
       navigation.navigate("Lobby", { name: creator, code: theCode });

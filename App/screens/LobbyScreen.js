@@ -7,14 +7,17 @@ const LobbyScreen = ({ route, navigation }) => {
   const { name, code } = route.params;
   return (
     <Container>
-      <View style={styles.header}>
-        <Text style={{ fontSize: 25, fontWeight: "bold" }}>Kode</Text>
-        <Text style={{ fontSize: 20, marginTop: "3%" }}>{code}</Text>
-      </View>
-      <View style={styles.screen}>
-        <View style={styles.participants}>
-          <Text style={{ fontSize: 25 }}>Deltakere:</Text>
-          <Text style={{ fontSize: 25 }}>{name}</Text>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.code}>
+            <Text style={{ fontSize: 25, fontWeight: "bold" }}>Kode</Text>
+            <Text style={{ fontSize: 20, marginTop: "4%" }}>{code}</Text>
+          </View>
+
+          <View style={styles.participants}>
+            <Text style={{ fontSize: 25 }}>Deltakere:</Text>
+            <Text style={{ fontSize: 25 }}>{name}</Text>
+          </View>
         </View>
 
         <View style={styles.buttonContainer}>
@@ -27,29 +30,34 @@ const LobbyScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    justifyContent: "center",
     alignItems: "center",
-    marginTop: "110%",
+    flex: 1,
+    justifyContent: "flex-end",
+    paddingBottom: "15%",
+  },
+
+  code: {
+    flex: 2,
+    justifyContent: "center",
   },
 
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
   },
 
   header: {
-    width: "100%",
+    flex: 3,
     height: 95,
     alignItems: "center",
     justifyContent: "center",
   },
 
   participants: {
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
-    marginTop: "2%",
+    flex: 4,
   },
 });
 
