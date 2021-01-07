@@ -7,6 +7,7 @@ import HomeScreen from "./App/screens/HomeScreen";
 import CreateScreen from "./App/screens/CreateScreen";
 import JoinScreen from "./App/screens/JoinScreen";
 import LobbyScreen from "./App/screens/LobbyScreen";
+import GenerateScreen from "./App/screens/GenerateScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ const HomeStack = () => {
       <Stack.Screen name="Create" component={CreateScreen} options={{ title: "" }} />
       <Stack.Screen name="Join" component={JoinScreen} options={{ title: "" }} />
       <Stack.Screen name="Lobby" component={LobbyScreen} options={{ title: "" }} />
+      <Stack.Screen name="Generate" component={GenerateScreen} options={{ title: "" }} />
     </Stack.Navigator>
   );
 };
@@ -28,11 +30,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  style: {
-    backgroundColor: "transparent",
-    borderTopWidth: 0,
-    position: "absolute",
-  },
-});
