@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Alert } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+
 import StartButton from "../components/StartButton";
 import TypeButton from "../components/TypeButton";
-import { Picker } from "@react-native-picker/picker";
 import Container from "../components/Container";
 import colors from "../config/colors";
+import mockdata from "../assets/data/mockdata";
 
 const CreateScreen = ({ route, navigation }) => {
   const { creator } = route.params;
@@ -47,6 +49,7 @@ const CreateScreen = ({ route, navigation }) => {
 
         {/*prettier-ignore */}
         <View style={styles.types}>
+
           <TypeButton
             onPress={() => {setTypeOfDate("Singel");}}
             style={{backgroundColor: typeOfDate == "Singel" ? colors.red : colors.blue}}
@@ -57,6 +60,7 @@ const CreateScreen = ({ route, navigation }) => {
             style={{backgroundColor: typeOfDate == "Dama" ? colors.red : colors.blue}}
             title="Kjæresten"
           />
+
       </View>
 
         <View style={styles.textTime}>
@@ -69,15 +73,9 @@ const CreateScreen = ({ route, navigation }) => {
             style={{ height: 50, width: 150 }}
             onValueChange={(itemValue) => setStartTime(itemValue)}
           >
-            <Picker.Item label="17:00" value="17:00" />
-            <Picker.Item label="17:30" value="17:30" />
-            <Picker.Item label="18:00" value="18:00" />
-            <Picker.Item label="18:30" value="18:30" />
-            <Picker.Item label="19:00" value="19:00" />
-            <Picker.Item label="19:30" value="19:30" />
-            <Picker.Item label="20:00" value="20:00" />
-            <Picker.Item label="20:30" value="20:30" />
-            <Picker.Item label="21:00" value="21:00" />
+            {mockdata.times.map((time) => (
+              <Picker.Item label={time} value={time} />
+            ))}
           </Picker>
         </View>
 

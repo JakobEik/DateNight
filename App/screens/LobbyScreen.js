@@ -5,6 +5,10 @@ import Container from "../components/Container";
 
 const LobbyScreen = ({ route, navigation }) => {
   const { name, code } = route.params;
+
+  const handlePress = () => {
+    navigation.navigate("Generate");
+  };
   return (
     <Container>
       <View style={styles.container}>
@@ -21,7 +25,7 @@ const LobbyScreen = ({ route, navigation }) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <StartButton>Lets go</StartButton>
+          <StartButton onPress={handlePress}>Lets go</StartButton>
         </View>
       </View>
     </Container>
