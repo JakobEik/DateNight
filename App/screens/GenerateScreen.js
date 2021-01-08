@@ -76,9 +76,13 @@ const GenerateScreen = () => {
         {bars.map((bar) => (<Text>{bar}</Text>))}
         {restaurants.map((restaurant) => (<Text>{restaurant}</Text>))}
         <Text>{sexPosition}</Text>
-        <StartButton style={styles.button} onPress={handlePress}>
-          Generate
-        </StartButton>
+
+        <View style={styles.buttonContainer}>
+          <StartButton style={styles.button} onPress={handlePress}>
+            Generate
+          </StartButton>
+        </View>
+        
       </View>
     </Container>
   );
@@ -91,6 +95,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
+    paddingBottom: "15%",
+  },
+  buttonContainer: {
     flex: 1,
     justifyContent: "flex-end",
   },
