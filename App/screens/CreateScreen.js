@@ -11,6 +11,7 @@ import mockdata from "../assets/data/mockdata";
 const CreateScreen = ({ route, navigation }) => {
   const { creator } = route.params;
   const [typeOfDate, setTypeOfDate] = useState("");
+  const [category, setCategory] = useState("");
   const [startTime, setStartTime] = useState("17:00");
 
   const randomCode = () => {
@@ -39,25 +40,41 @@ const CreateScreen = ({ route, navigation }) => {
   };
 
   return (
-    <Container style={styles.container}>
+    <Container>
       <View style={styles.text}>
         <Text style={{ fontSize: 20 }}>Who you gonna date?</Text>
       </View>
 
       {/*prettier-ignore */}
-      <View style={styles.types}>
-
-          <TypeButton
-            onPress={() => {setTypeOfDate("Singel");}}
-            style={{backgroundColor: typeOfDate == "Singel" ? colors.red : colors.blue}}
-            title="Random"
-          />
-          <TypeButton 
-            onPress={() => {setTypeOfDate("Dama");}}
-            style={{backgroundColor: typeOfDate == "Dama" ? colors.red : colors.blue}}
-            title="Kjæresten"
-          />
-
+      <View style={styles.whoDate}>
+        <TypeButton
+          onPress={() => {setTypeOfDate("Singel");}}
+          style={{backgroundColor: typeOfDate == "Singel" ? colors.red : colors.blue, width: "40%", height: "20%"}}
+          title="Random"
+        />
+        <TypeButton 
+          onPress={() => {setTypeOfDate("Dama");}}
+          style={{backgroundColor: typeOfDate == "Dama" ? colors.red : colors.blue, width: "40%", height: "20%"}}
+          title="Kjæresten"
+        />
+      </View>
+      {/*prettier-ignore */}
+      <View style={styles.category}>
+        <TypeButton 
+          onPress={() => {setCategory("fullPlan")}}
+          style={{ backgroundColor: category == "fullPlan" ? colors.red : colors.blue, width: "25%", height: "45%"}}
+          title="FullPlan"
+        />
+        <TypeButton 
+          onPress={() => {setCategory("halfPlan")}}
+          style={{ backgroundColor: category == "halfPlan" ? colors.red : colors.blue, width: "25%", height: "45%"}}
+          title="halfPlan"
+        />
+        <TypeButton 
+          onPress={() => {setCategory("noPlan")}}
+          style={{ backgroundColor: category == "noPlan" ? colors.red : colors.blue, width: "25%", height: "45%"}}
+          title="noPlan"        
+        />
       </View>
 
       <View style={styles.textTime}>
@@ -89,20 +106,22 @@ const styles = StyleSheet.create({
   buttonContainer: {
     justifyContent: "center",
     alignItems: "center",
+    flex: 2,
+  },
+  category: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
     flex: 1,
   },
-  container: {
-    justifyContent: "space-between",
-    alignContent: "center",
-  },
+
   timeContainer: {
-    flex: 1,
+    flex: 3,
     alignItems: "center",
   },
   text: {
-    justifyContent: "center",
     alignItems: "center",
     flex: 1,
+    justifyContent: "flex-end",
   },
 
   textTime: {
@@ -110,11 +129,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  types: {
+  whoDate: {
     flexDirection: "row",
+    flex: 3,
     alignItems: "center",
-    justifyContent: "space-evenly",
-    flex: 1,
+    justifyContent: "space-around",
   },
 });
 
