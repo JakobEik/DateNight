@@ -72,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
           Lag en date
         </StartButton>
 
-        <StartButton onPress={checkJoinSubmit}>Bli med på date</StartButton>
+        {/* <StartButton onPress={checkJoinSubmit}>Bli med på date</StartButton>*/}
       </View>
     </Container>
   );

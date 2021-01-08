@@ -11,7 +11,6 @@ import mockdata from "../assets/data/mockdata";
 const CreateScreen = ({ route, navigation }) => {
   const { creator } = route.params;
   const [typeOfDate, setTypeOfDate] = useState("");
-  const [budget, setBudget] = useState("");
   const [startTime, setStartTime] = useState("17:00");
 
   const randomCode = () => {
@@ -26,7 +25,6 @@ const CreateScreen = ({ route, navigation }) => {
   const date = {
     creator: creator,
     dateType: typeOfDate,
-    budget: budget,
     startTime: startTime,
     code: theCode,
   };
@@ -35,7 +33,7 @@ const CreateScreen = ({ route, navigation }) => {
     if (date.dateType == "") {
       Alert.alert("Obsobs", "Vennligst fyll ut alle feltene");
     } else {
-      navigation.navigate("Lobby", { name: creator, code: theCode });
+      navigation.navigate("Generate", { name: creator, code: theCode });
       console.log(date);
     }
   };
@@ -73,7 +71,7 @@ const CreateScreen = ({ route, navigation }) => {
             style={{ height: 50, width: 150 }}
             onValueChange={(itemValue) => setStartTime(itemValue)}
           >
-            {mockdata.times.map((time) => (
+            {mockdata.timesHalf.map((time) => (
               <Picker.Item label={time} value={time} />
             ))}
           </Picker>
