@@ -33,11 +33,13 @@ const CreateScreen = ({ route, navigation }) => {
   };
 
   const whenPressed = () => {
+    let single;
     if (typeOfDate === "" || category === "") {
       Alert.alert("Obsobs", "Vennligst fyll ut alle feltene");
     } else {
       if (category === "halfPlan") {
-        navigation.navigate("Generate", { name: creator, code: theCode });
+        typeOfDate === "Singel" ? (single = true) : (single = false);
+        navigation.navigate("Generate", { name: creator, single: single });
       }
 
       console.log(date);

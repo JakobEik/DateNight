@@ -1,27 +1,10 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import StartButton from "../components/StartButton";
 import Container from "../components/Container";
 import mockdata from "../assets/data/mockdata";
 
-const GenerateScreen = () => {
-  const [numberOfBars, setNumberOfBars] = useState(2);
-  const [numberOfRestaurants, setNumberOfRestaurants] = useState(1);
-  const [outfit, setOutfit] = useState("");
-  const [drink, setDrink] = useState("");
-  const [bars, setBars] = useState([]);
-  const [restaurants, setRestaurants] = useState([]);
-  const [sexPosition, setSexPosition] = useState("");
-
-  const handlePress = () => {
-    setOutfit(chooseOutfit);
-    setDrink(chooseDrink);
-    setBars(chooseBars(numberOfBars));
-    setRestaurants(chooseRestaurants(numberOfRestaurants));
-    setSexPosition(chooseSexPosition);
-    console.log(outfit, drink, bars, restaurants, sexPosition);
-  };
-
+const GenerateScreen = ({ route }) => {
   const chooseOutfit = () => {
     let randomChoice = Math.floor(Math.random() * mockdata.outfits.length);
     return mockdata.outfits[randomChoice];
@@ -66,6 +49,23 @@ const GenerateScreen = () => {
     let randomChoice = Math.floor(Math.random() * mockdata.sexpositions.length);
     return mockdata.sexpositions[randomChoice];
   };
+  const { name, single } = route.params;
+  const [numberOfBars, setNumberOfBars] = useState(2);
+  const [numberOfRestaurants, setNumberOfRestaurants] = useState(1);
+  const [outfit, setOutfit] = useState(() => chooseOutfit());
+  const [drink, setDrink] = useState(() => chooseDrink());
+  const [bars, setBars] = useState(() => chooseBars(numberOfBars));
+  const [restaurants, setRestaurants] = useState(() => chooseRestaurants(numberOfRestaurants));
+  const [sexPosition, setSexPosition] = useState(() => chooseSexPosition());
+
+  const handlePress = () => {
+    setOutfit(chooseOutfit);
+    setDrink(chooseDrink);
+    setBars(chooseBars(numberOfBars));
+    setRestaurants(chooseRestaurants(numberOfRestaurants));
+    setSexPosition(chooseSexPosition);
+    console.log(outfit, drink, bars, restaurants, sexPosition);
+  };
 
   return (
     <Container style={styles.container}>
@@ -79,7 +79,7 @@ const GenerateScreen = () => {
       {restaurants.map((restaurant) => (
         <Text>{restaurant}</Text>
       ))}
-      <Text>{sexPosition}</Text>
+      {!single ? <Text>{sexPosition}</Text> : <Text />}
 
       <View style={styles.buttonContainer}>
         <StartButton style={styles.button} onPress={handlePress}>
