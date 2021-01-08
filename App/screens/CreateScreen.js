@@ -23,18 +23,23 @@ const CreateScreen = ({ route, navigation }) => {
 
   const theCode = randomCode();
 
+  // Brukes bare til console.log
   const date = {
     creator: creator,
     dateType: typeOfDate,
+    category: category,
     startTime: startTime,
     code: theCode,
   };
 
   const whenPressed = () => {
-    if (date.dateType == "") {
+    if (typeOfDate === "" || category === "") {
       Alert.alert("Obsobs", "Vennligst fyll ut alle feltene");
     } else {
-      navigation.navigate("Generate", { name: creator, code: theCode });
+      if (category === "halfPlan") {
+        navigation.navigate("Generate", { name: creator, code: theCode });
+      }
+
       console.log(date);
     }
   };
