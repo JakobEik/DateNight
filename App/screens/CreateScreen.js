@@ -39,14 +39,13 @@ const CreateScreen = ({ route, navigation }) => {
   };
 
   return (
-    <Container>
-      <View style={styles.container}>
-        <View style={styles.text}>
-          <Text style={{ fontSize: 20 }}>Who you gonna date?</Text>
-        </View>
+    <Container style={styles.container}>
+      <View style={styles.text}>
+        <Text style={{ fontSize: 20 }}>Who you gonna date?</Text>
+      </View>
 
-        {/*prettier-ignore */}
-        <View style={styles.types}>
+      {/*prettier-ignore */}
+      <View style={styles.types}>
 
           <TypeButton
             onPress={() => {setTypeOfDate("Singel");}}
@@ -61,27 +60,26 @@ const CreateScreen = ({ route, navigation }) => {
 
       </View>
 
-        <View style={styles.textTime}>
-          <Text style={{ fontSize: 20 }}>Startstidspunkt</Text>
-        </View>
+      <View style={styles.textTime}>
+        <Text style={{ fontSize: 20 }}>Startstidspunkt</Text>
+      </View>
 
-        <View style={styles.timeContainer}>
-          <Picker
-            selectedValue={startTime}
-            style={{ height: 50, width: 150 }}
-            onValueChange={(itemValue) => setStartTime(itemValue)}
-          >
-            {mockdata.timesHalf.map((time) => (
-              <Picker.Item label={time} value={time} />
-            ))}
-          </Picker>
-        </View>
+      <View style={styles.timeContainer}>
+        <Picker
+          selectedValue={startTime}
+          style={{ height: 50, width: 150 }}
+          onValueChange={(itemValue) => setStartTime(itemValue)}
+        >
+          {mockdata.timesHalf.map((time) => (
+            <Picker.Item label={time} value={time} />
+          ))}
+        </Picker>
+      </View>
 
-        <View style={styles.buttonContainer}>
-          <StartButton title="Lets go" onPress={whenPressed}>
-            LETS GO
-          </StartButton>
-        </View>
+      <View style={styles.buttonContainer}>
+        <StartButton title="Lets go" onPress={whenPressed}>
+          LETS GO
+        </StartButton>
       </View>
     </Container>
   );
@@ -94,7 +92,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    flex: 1,
     justifyContent: "space-between",
     alignContent: "center",
   },

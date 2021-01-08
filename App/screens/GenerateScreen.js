@@ -68,21 +68,23 @@ const GenerateScreen = () => {
   };
 
   return (
-    <Container>
+    <Container style={styles.container}>
       {/*prettier-ignore */}
-      <View style={styles.container}>
-        <Text>{outfit}</Text>
-        <Text>{drink}</Text>
-        {bars.map((bar) => (<Text>{bar}</Text>))}
-        {restaurants.map((restaurant) => (<Text>{restaurant}</Text>))}
-        <Text>{sexPosition}</Text>
 
-        <View style={styles.buttonContainer}>
-          <StartButton style={styles.button} onPress={handlePress}>
-            Generate
-          </StartButton>
-        </View>
-        
+      <Text>{outfit}</Text>
+      <Text>{drink}</Text>
+      {bars.map((bar) => (
+        <Text>{bar}</Text>
+      ))}
+      {restaurants.map((restaurant) => (
+        <Text>{restaurant}</Text>
+      ))}
+      <Text>{sexPosition}</Text>
+
+      <View style={styles.buttonContainer}>
+        <StartButton style={styles.button} onPress={handlePress}>
+          Generate
+        </StartButton>
       </View>
     </Container>
   );
@@ -90,8 +92,6 @@ const GenerateScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignContent: "center",
     alignItems: "center",
   },
   button: {
