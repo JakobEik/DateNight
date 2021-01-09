@@ -5,6 +5,7 @@ import Dash from "react-native-dash";
 import StartButton from "../components/StartButton";
 import Container from "../components/Container";
 import mockdata from "../assets/data/mockdata";
+import colors from "../config/colors";
 
 const GenerateScreen = ({ route }) => {
   const chooseOutfit = () => {
@@ -51,9 +52,8 @@ const GenerateScreen = ({ route }) => {
     let randomChoice = Math.floor(Math.random() * mockdata.sexpositions.length);
     return mockdata.sexpositions[randomChoice];
   };
-  const { name, single } = route.params;
-  const [numberOfBars, setNumberOfBars] = useState(2);
-  const [numberOfRestaurants, setNumberOfRestaurants] = useState(1);
+
+  const { name, isSingle, numberOfBars, numberOfRestaurants, hasDrink, hasOutfit, startTime } = route.params;
   const [outfit, setOutfit] = useState(() => chooseOutfit());
   const [drink, setDrink] = useState(() => chooseDrink());
   const [bars, setBars] = useState(() => chooseBars(numberOfBars));
@@ -66,63 +66,104 @@ const GenerateScreen = ({ route }) => {
     setBars(chooseBars(numberOfBars));
     setRestaurants(chooseRestaurants(numberOfRestaurants));
     setSexPosition(chooseSexPosition);
-    console.log(outfit, drink, bars, restaurants, sexPosition);
+    //console.log(outfit, drink, bars, restaurants, sexPosition);
   };
 
   return (
     <Container style={styles.container}>
-      <View style={styles.container2}>
-        <View style={styles.column1}>
-          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
-          <Dash style={styles.dash} dashGap={4} dashColor="grey" />
-          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
-          <Dash style={styles.dash} dashGap={4} dashColor="grey" />
-          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
-          <Dash style={styles.dash} dashGap={4} dashColor="grey" />
-          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
-          <Dash style={styles.dash} dashGap={4} dashColor="grey" />
-          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
-          <Dash style={styles.dash} dashGap={4} dashColor="grey" />
-          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+      <View style={styles.header}>
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Header</Text>
+      </View>
+
+      <View style={[styles.row, { flex: 1.5, alignItems: "center" }]}>
+        {hasOutfit ? (
+          <View style={styles.row}>
+            <View style={styles.columnOnlyOutfitOrDrink}>
+              <Image style={[styles.icon, { marginTop: 20 }]} source={require("../assets/icons/casualFin.png")} />
+            </View>
+
+            <View style={styles.column2}>
+              <Text style={styles.textHeader2}>Outfit</Text>
+              <Text style={styles.text}>{outfit}</Text>
+            </View>
+          </View>
+        ) : null}
+
+        {hasDrink ? (
+          <View style={[styles.row, { paddingLeft: 40 }]}>
+            <View style={styles.columnOnlyOutfitOrDrink}>
+              <Image style={[styles.icon, { marginTop: 20 }]} source={require("../assets/icons/casualFin.png")} />
+            </View>
+
+            <View style={styles.column2}>
+              <Text style={styles.textHeader2}>Drikke</Text>
+              <Text style={styles.text}>{drink}</Text>
+            </View>
+          </View>
+        ) : null}
+      </View>
+
+      {numberOfBars > 0 ? (
+        <View style={{ flex: numberOfBars }}>
+          <Text style={styles.textHeader}>Barer</Text>
+
+          {bars.map((bar) => (
+            <View style={styles.row}>
+              <View style={styles.column1}>
+                <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+                <Dash style={styles.dash} dashGap={4} dashColor="grey" />
+              </View>
+
+              <View style={styles.column2}>
+                <Text style={styles.text}>{bar}</Text>
+              </View>
+
+              <View style={styles.column3}>
+                <Text style={styles.text}>{startTime}</Text>
+              </View>
+            </View>
+          ))}
         </View>
+      ) : null}
+      {numberOfRestaurants > 0 ? (
+        <View style={{ flex: numberOfRestaurants }}>
+          <Text style={styles.textHeader}>Restauranter</Text>
+          {restaurants.map((restaurant) => (
+            <View style={styles.row}>
+              <View style={styles.column1}>
+                <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+                <Dash style={styles.dash} dashGap={4} dashColor="grey" />
+              </View>
 
-        <View style={styles.column2}>
-          <View style={styles.categoryBox}>
-            <Text style={styles.textHeader}>Outfit</Text>
-            <Text style={styles.text}>{outfit}</Text>
-          </View>
+              <View style={styles.column2}>
+                <Text style={styles.text}>{restaurant}</Text>
+              </View>
 
-          <View style={styles.categoryBox}>
-            <Text style={styles.textHeader}>Drikke</Text>
-            <Text style={styles.text}>{drink}</Text>
-          </View>
+              <View style={styles.column3}>
+                <Text style={styles.text}>{startTime}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      ) : null}
 
-          <View style={styles.categoryBox}>
-            <Text style={styles.textHeader}>Barer</Text>
-            {bars.map((bar) => (
-              <Text style={styles.text}>{bar}</Text>
-            ))}
-          </View>
+      {!isSingle ? (
+        <>
+          <Text style={styles.textHeader}>Sexposisjon</Text>
+          <View style={styles.row}>
+            <View style={styles.column1}>
+              <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+            </View>
 
-          <View style={styles.categoryBox}>
-            <Text style={styles.textHeader}>Restauranter</Text>
-            {restaurants.map((restaurant) => (
-              <Text>{restaurant}</Text>
-            ))}
-          </View>
-
-          {!single ? (
-            <View style={styles.categoryBox}>
-              <Text style={styles.textHeader}>Sexposisjon</Text>
+            <View style={styles.column2}>
               <Text style={styles.text}>{sexPosition}</Text>
             </View>
-          ) : (
-            {}
-          )}
-        </View>
 
-        <View style={styles.column3}></View>
-      </View>
+            <View style={styles.column3}></View>
+          </View>
+        </>
+      ) : null}
+
       <View style={styles.buttonContainer}>
         <StartButton style={styles.button} onPress={handlePress}>
           Generate
@@ -134,21 +175,18 @@ const GenerateScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
   button: {
-    paddingBottom: "15%",
+    paddingBottom: "10%",
     alignSelf: "center",
   },
   buttonContainer: {
     flex: 1,
-    justifyContent: "flex-end",
-  },
-  categoryBox: {
-    paddingBottom: 30,
-    paddingTop: 5,
+    justifyContent: "center",
+    //backgroundColor: "brown",
   },
   column1: {
     width: "13%",
     height: "100%",
-    //backgroundColor: "pink",
+    //backgroundColor: colors.blue,
     alignItems: "flex-start",
   },
   column2: {
@@ -158,35 +196,53 @@ const styles = StyleSheet.create({
   column3: {
     width: "13%",
     height: "100%",
-    //backgroundColor: "pink",
+    //backgroundColor: colors.red,
+  },
+  columnOnlyOutfitOrDrink: {
+    width: "26%",
+    height: "100%",
+    //backgroundColor: colors.blue,
+    alignItems: "flex-start",
   },
   container: {
-    //backgroundColor: "white",
     width: "90%",
     alignSelf: "center",
   },
-  container2: {
-    paddingTop: "15%",
-    flexDirection: "row",
-    flex: 3,
-  },
   dash: {
     flexDirection: "column",
-    height: 30,
+    height: "100%",
     borderRadius: 100,
     paddingLeft: 12,
   },
+  header: {
+    width: "100%",
+    height: "5%",
+    //backgroundColor: "pink",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   icon: {
-    marginVertical: "10%",
+    marginBottom: "5%",
     width: 27,
     height: 35,
   },
+  row: {
+    flexDirection: "row",
+    flex: 1,
+  },
   text: {
     fontSize: 14,
+    paddingTop: 10,
   },
   textHeader: {
     fontSize: 16,
     fontWeight: "bold",
+    alignSelf: "center",
+  },
+  textHeader2: {
+    fontSize: 16,
+    fontWeight: "bold",
+    //paddingLeft: 20,
   },
 });
 

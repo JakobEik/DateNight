@@ -23,15 +23,6 @@ const CreateScreen = ({ route, navigation }) => {
 
   const theCode = randomCode();
 
-  // Brukes bare til console.log
-  const date = {
-    creator: creator,
-    dateType: typeOfDate,
-    category: category,
-    startTime: startTime,
-    code: theCode,
-  };
-
   const whenPressed = () => {
     let single;
     if (typeOfDate === "" || category === "") {
@@ -39,10 +30,18 @@ const CreateScreen = ({ route, navigation }) => {
     } else {
       if (category === "halfPlan") {
         typeOfDate === "Singel" ? (single = true) : (single = false);
-        navigation.navigate("Generate", { name: creator, single: single });
+        navigation.navigate("Generate", {
+          name: creator,
+          isSingle: single,
+          numberOfBars: 5,
+          numberOfRestaurants: 4,
+          hasDrink: true,
+          hasOutfit: true,
+          startTime: startTime,
+        });
       }
 
-      console.log(date);
+      //console.log(date);
     }
   };
 
