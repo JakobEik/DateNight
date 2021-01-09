@@ -34,7 +34,7 @@ const CreateScreen = ({ route, navigation }) => {
           name: creator,
           isSingle: single,
           numberOfBars: 5,
-          numberOfRestaurants: 4,
+          numberOfRestaurants: 2,
           hasDrink: true,
           hasOutfit: true,
           startTime: startTime,

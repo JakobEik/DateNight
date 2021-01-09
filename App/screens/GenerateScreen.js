@@ -78,7 +78,7 @@ const GenerateScreen = ({ route }) => {
       <View style={[styles.row, { flex: 1.5, alignItems: "center" }]}>
         {hasOutfit ? (
           <View style={styles.row}>
-            <View style={styles.columnOnlyOutfitOrDrink}>
+            <View style={hasDrink ? styles.columnBothOutfitAndDrink : styles.column1}>
               <Image style={[styles.icon, { marginTop: 20 }]} source={require("../assets/icons/casualFin.png")} />
             </View>
 
@@ -90,13 +90,13 @@ const GenerateScreen = ({ route }) => {
         ) : null}
 
         {hasDrink ? (
-          <View style={[styles.row, { paddingLeft: 40 }]}>
-            <View style={styles.columnOnlyOutfitOrDrink}>
+          <View style={[styles.row, hasOutfit ? { paddingLeft: 40 } : null]}>
+            <View style={hasOutfit ? styles.columnBothOutfitAndDrink : styles.column1}>
               <Image style={[styles.icon, { marginTop: 20 }]} source={require("../assets/icons/casualFin.png")} />
             </View>
 
             <View style={styles.column2}>
-              <Text style={styles.textHeader2}>Drikke</Text>
+              <Text style={hasOutfit ? styles.textHeader2 : styles.textHeader}>Drikke</Text>
               <Text style={styles.text}>{drink}</Text>
             </View>
           </View>
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   buttonContainer: {
-    flex: 1,
+    flex: 2,
     justifyContent: "center",
     //backgroundColor: "brown",
   },
@@ -197,8 +197,9 @@ const styles = StyleSheet.create({
     width: "13%",
     height: "100%",
     //backgroundColor: colors.red,
+    alignItems: "flex-end",
   },
-  columnOnlyOutfitOrDrink: {
+  columnBothOutfitAndDrink: {
     width: "26%",
     height: "100%",
     //backgroundColor: colors.blue,
