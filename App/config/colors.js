@@ -5,4 +5,5 @@ export default {
   lightest: "#ea0599",
   red: "#fe6b64",
   blue: "#a4cdd1",
+  red2: "#e94922",
 };

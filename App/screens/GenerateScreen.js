@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
+import Dash from "react-native-dash";
+
 import StartButton from "../components/StartButton";
 import Container from "../components/Container";
 import mockdata from "../assets/data/mockdata";
@@ -69,18 +71,58 @@ const GenerateScreen = ({ route }) => {
 
   return (
     <Container style={styles.container}>
-      {/*prettier-ignore */}
+      <View style={styles.container2}>
+        <View style={styles.column1}>
+          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+          <Dash style={styles.dash} dashGap={4} dashColor="grey" />
+          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+          <Dash style={styles.dash} dashGap={4} dashColor="grey" />
+          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+          <Dash style={styles.dash} dashGap={4} dashColor="grey" />
+          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+          <Dash style={styles.dash} dashGap={4} dashColor="grey" />
+          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+          <Dash style={styles.dash} dashGap={4} dashColor="grey" />
+          <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+        </View>
 
-      <Text>{outfit}</Text>
-      <Text>{drink}</Text>
-      {bars.map((bar) => (
-        <Text>{bar}</Text>
-      ))}
-      {restaurants.map((restaurant) => (
-        <Text>{restaurant}</Text>
-      ))}
-      {!single ? <Text>{sexPosition}</Text> : <Text />}
+        <View style={styles.column2}>
+          <View style={styles.categoryBox}>
+            <Text style={styles.textHeader}>Outfit</Text>
+            <Text style={styles.text}>{outfit}</Text>
+          </View>
 
+          <View style={styles.categoryBox}>
+            <Text style={styles.textHeader}>Drikke</Text>
+            <Text style={styles.text}>{drink}</Text>
+          </View>
+
+          <View style={styles.categoryBox}>
+            <Text style={styles.textHeader}>Barer</Text>
+            {bars.map((bar) => (
+              <Text style={styles.text}>{bar}</Text>
+            ))}
+          </View>
+
+          <View style={styles.categoryBox}>
+            <Text style={styles.textHeader}>Restauranter</Text>
+            {restaurants.map((restaurant) => (
+              <Text>{restaurant}</Text>
+            ))}
+          </View>
+
+          {!single ? (
+            <View style={styles.categoryBox}>
+              <Text style={styles.textHeader}>Sexposisjon</Text>
+              <Text style={styles.text}>{sexPosition}</Text>
+            </View>
+          ) : (
+            {}
+          )}
+        </View>
+
+        <View style={styles.column3}></View>
+      </View>
       <View style={styles.buttonContainer}>
         <StartButton style={styles.button} onPress={handlePress}>
           Generate
@@ -91,15 +133,60 @@ const GenerateScreen = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-  },
   button: {
     paddingBottom: "15%",
+    alignSelf: "center",
   },
   buttonContainer: {
     flex: 1,
     justifyContent: "flex-end",
+  },
+  categoryBox: {
+    paddingBottom: 30,
+    paddingTop: 5,
+  },
+  column1: {
+    width: "13%",
+    height: "100%",
+    //backgroundColor: "pink",
+    alignItems: "flex-start",
+  },
+  column2: {
+    flex: 1,
+    //backgroundColor: "yellow",
+  },
+  column3: {
+    width: "13%",
+    height: "100%",
+    //backgroundColor: "pink",
+  },
+  container: {
+    //backgroundColor: "white",
+    width: "90%",
+    alignSelf: "center",
+  },
+  container2: {
+    paddingTop: "15%",
+    flexDirection: "row",
+    flex: 3,
+  },
+  dash: {
+    flexDirection: "column",
+    height: 30,
+    borderRadius: 100,
+    paddingLeft: 12,
+  },
+  icon: {
+    marginVertical: "10%",
+    width: 27,
+    height: 35,
+  },
+  text: {
+    fontSize: 14,
+  },
+  textHeader: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 
