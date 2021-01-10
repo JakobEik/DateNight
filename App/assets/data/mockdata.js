@@ -15,7 +15,9 @@ export default {
     "Gin shot",
     "Rom shot",
 
-    // Vin fra 10-37
+    "Mojito",
+
+    // Vin fra 11-38
     "Rødvin - Frankrike",
     "Rødvin - Italia",
     "Rødvin - Chile",
@@ -44,6 +46,7 @@ export default {
     "Sprudlevin - Tyskland",
     "Sider - Butikk",
     "Hardangersider ",
+    // Cocktail større enn 37
     "Barnesprit",
     "French Connection",
     "Horse's Neck",
@@ -85,7 +88,6 @@ export default {
     "Daiquiri",
     "Dark 'N' Stormy",
     "Mai Tai",
-    "Mojito",
     "Painkiller",
     "Piña colada",
     "Planter's Punch",

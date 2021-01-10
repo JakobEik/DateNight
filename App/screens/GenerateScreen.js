@@ -6,16 +6,49 @@ import StartButton from "../components/StartButton";
 import Container from "../components/Container";
 import mockdata from "../assets/data/mockdata";
 import colors from "../config/colors";
+import Icon from "../components/Icon";
 
 const GenerateScreen = ({ route }) => {
+  const [drinkIcon, setDrinkIcon] = useState("");
+  const [outfitIcon, setOutfitIcon] = useState("");
+
   const chooseOutfit = () => {
     let randomChoice = Math.floor(Math.random() * mockdata.outfits.length);
+    chooseOutfitIcon(randomChoice);
+    console.log(outfitIcon);
     return mockdata.outfits[randomChoice];
+  };
+  const chooseOutfitIcon = (number) => {
+    if (number === 0) {
+      setOutfitIcon("shabby");
+    } else if (number === 1) {
+      setOutfitIcon("casual");
+    } else if (number === 2) {
+      setOutfitIcon("casual fint");
+    } else if (number === 3) {
+      setOutfitIcon("business");
+    } else if (number === 4) {
+      setOutfitIcon("black tie");
+    }
   };
 
   const chooseDrink = () => {
     let randomChoice = Math.floor(Math.random() * mockdata.drinks.length);
+    chooseDrinkIcon(randomChoice);
     return mockdata.drinks[randomChoice];
+  };
+  const chooseDrinkIcon = (number) => {
+    if (number <= 5) {
+      setDrinkIcon("beer");
+    } else if (number > 5 && number <= 9) {
+      setDrinkIcon("shot");
+    } else if (number === 10) {
+      setDrinkIcon("mojito");
+    } else if (number > 10 && number <= 38) {
+      setDrinkIcon("wine");
+    } else {
+      setDrinkIcon("cocktail");
+    }
   };
 
   const chooseBars = (nrOfBars) => {
@@ -79,7 +112,7 @@ const GenerateScreen = ({ route }) => {
         {hasOutfit ? (
           <View style={styles.row}>
             <View style={hasDrink ? styles.columnBothOutfitAndDrink : styles.column1}>
-              <Image style={[styles.icon, { marginTop: 20 }]} source={require("../assets/icons/casualFin.png")} />
+              <Icon style={styles.icon} icon={outfitIcon} />
             </View>
 
             <View style={styles.column2}>
@@ -93,7 +126,7 @@ const GenerateScreen = ({ route }) => {
         {hasDrink ? (
           <View style={styles.row}>
             <View style={hasOutfit ? styles.columnBothOutfitAndDrink : styles.column1}>
-              <Image style={[styles.icon, { marginTop: 20 }]} source={require("../assets/icons/cocktail.png")} />
+              <Icon style={styles.icon} icon={drinkIcon} />
             </View>
 
             <View style={styles.column2}>
@@ -117,7 +150,7 @@ const GenerateScreen = ({ route }) => {
           </View>
 
           <View style={styles.column3}>
-            <View style={{ flex: 1.9, justifyContent: "flex-end" }}>
+            <View style={{ flex: 1.6, justifyContent: "flex-end" }}>
               <Text style={styles.text}>{startTime}</Text>
             </View>
 
@@ -287,7 +320,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    paddingTop: 7,
+    paddingTop: 9,
   },
   textHeader: {
     fontSize: 16,
