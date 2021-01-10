@@ -86,14 +86,14 @@ const GenerateScreen = ({ route }) => {
               <Text style={hasDrink ? styles.textHeader2 : styles.textHeader}>Outfit</Text>
               <Text style={styles.text}>{outfit}</Text>
             </View>
-            <View style={styles.column3}></View>
+            {!(hasDrink && hasOutfit) ? <View style={styles.column3}></View> : null}
           </View>
         ) : null}
 
         {hasDrink ? (
           <View style={styles.row}>
             <View style={hasOutfit ? styles.columnBothOutfitAndDrink : styles.column1}>
-              <Image style={[styles.icon, { marginTop: 20 }]} source={require("../assets/icons/casualFin.png")} />
+              <Image style={[styles.icon, { marginTop: 20 }]} source={require("../assets/icons/cocktail.png")} />
             </View>
 
             <View style={styles.column2}>
@@ -101,23 +101,26 @@ const GenerateScreen = ({ route }) => {
               <Text style={styles.text}>{drink}</Text>
             </View>
 
-            <View style={styles.column3}></View>
+            {!(hasDrink && hasOutfit) ? <View style={styles.column3}></View> : null}
           </View>
         ) : null}
       </View>
 
       {hasDrink ? (
-        <View style={{ flex: 0.5, flexDirection: "row" }}>
-          <View style={styles.column1}>
-            <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+        <View style={{ alignItems: "center", flex: 1, flexDirection: "row" }}>
+          <View style={[styles.column1, { justifyContent: "center" }]}>
+            <Image style={styles.icon} source={require("../assets/icons/start2.png")} />
           </View>
 
           <View style={styles.column2}>
-            <Text style={[styles.text, { fontWeight: "bold" }]}>Start et valgfritt sted med en drink</Text>
+            <Text style={{ fontWeight: "bold" }}>Start et valgfritt sted med en drink</Text>
           </View>
 
           <View style={styles.column3}>
-            <Text style={styles.text}>{startTime}</Text>
+            <View style={{ flex: 1.9, justifyContent: "flex-end" }}>
+              <Text style={styles.text}>{startTime}</Text>
+            </View>
+
             <Dash style={styles.dash} dashGap={4} dashColor="grey" />
           </View>
         </View>
@@ -137,7 +140,7 @@ const GenerateScreen = ({ route }) => {
           {bars.map((bar) => (
             <View style={styles.row}>
               <View style={styles.column1}>
-                <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+                <Image style={styles.icon} source={require("../assets/icons/beer.png")} />
               </View>
 
               <View style={styles.column2}>
@@ -167,7 +170,7 @@ const GenerateScreen = ({ route }) => {
           {restaurants.map((restaurant) => (
             <View style={styles.row}>
               <View style={styles.column1}>
-                <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+                <Image style={styles.icon} source={require("../assets/icons/restaurant2.png")} />
               </View>
 
               <View style={styles.column2}>
@@ -196,7 +199,7 @@ const GenerateScreen = ({ route }) => {
           </View>
           <View style={styles.row}>
             <View style={styles.column1}>
-              <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+              <Image style={styles.icon} source={require("../assets/icons/sex.png")} />
             </View>
 
             <View style={styles.column2}>
@@ -225,7 +228,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   buttonContainer: {
-    flex: 2,
+    flex: 1.5,
     justifyContent: "center",
     //backgroundColor: "brown",
   },
@@ -275,8 +278,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icon: {
-    marginBottom: "5%",
-    width: 27,
+    width: 33,
     height: 35,
   },
   row: {
@@ -285,7 +287,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    paddingTop: 10,
+    paddingTop: 7,
   },
   textHeader: {
     fontSize: 16,
