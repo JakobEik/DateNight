@@ -33,8 +33,8 @@ const CreateScreen = ({ route, navigation }) => {
         navigation.navigate("Generate", {
           name: creator,
           isSingle: single,
-          numberOfBars: 5,
-          numberOfRestaurants: 2,
+          numberOfBars: 3,
+          numberOfRestaurants: 1,
           hasDrink: true,
           hasOutfit: true,
           startTime: startTime,

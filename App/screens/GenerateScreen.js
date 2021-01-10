@@ -75,7 +75,7 @@ const GenerateScreen = ({ route }) => {
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Header</Text>
       </View>
 
-      <View style={[styles.row, { flex: 1.5, alignItems: "center" }]}>
+      <View style={[styles.row, { flex: 1, alignItems: "center" }]}>
         {hasOutfit ? (
           <View style={styles.row}>
             <View style={hasDrink ? styles.columnBothOutfitAndDrink : styles.column1}>
@@ -83,14 +83,15 @@ const GenerateScreen = ({ route }) => {
             </View>
 
             <View style={styles.column2}>
-              <Text style={styles.textHeader2}>Outfit</Text>
+              <Text style={hasDrink ? styles.textHeader2 : styles.textHeader}>Outfit</Text>
               <Text style={styles.text}>{outfit}</Text>
             </View>
+            <View style={styles.column3}></View>
           </View>
         ) : null}
 
         {hasDrink ? (
-          <View style={[styles.row, hasOutfit ? { paddingLeft: 40 } : null]}>
+          <View style={styles.row}>
             <View style={hasOutfit ? styles.columnBothOutfitAndDrink : styles.column1}>
               <Image style={[styles.icon, { marginTop: 20 }]} source={require("../assets/icons/casualFin.png")} />
             </View>
@@ -99,19 +100,44 @@ const GenerateScreen = ({ route }) => {
               <Text style={hasOutfit ? styles.textHeader2 : styles.textHeader}>Drikke</Text>
               <Text style={styles.text}>{drink}</Text>
             </View>
+
+            <View style={styles.column3}></View>
           </View>
         ) : null}
       </View>
 
+      {hasDrink ? (
+        <View style={{ flex: 0.5, flexDirection: "row" }}>
+          <View style={styles.column1}>
+            <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
+          </View>
+
+          <View style={styles.column2}>
+            <Text style={[styles.text, { fontWeight: "bold" }]}>Start et valgfritt sted med en drink</Text>
+          </View>
+
+          <View style={styles.column3}>
+            <Text style={styles.text}>{startTime}</Text>
+            <Dash style={styles.dash} dashGap={4} dashColor="grey" />
+          </View>
+        </View>
+      ) : null}
+
       {numberOfBars > 0 ? (
         <View style={{ flex: numberOfBars }}>
-          <Text style={styles.textHeader}>Barer</Text>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.textHeader, { paddingLeft: 19 }]}>Barer</Text>
+            </View>
 
+            <View style={styles.dash2}>
+              {hasDrink ? <Dash style={styles.dash} dashGap={4} dashColor="grey" /> : null}
+            </View>
+          </View>
           {bars.map((bar) => (
             <View style={styles.row}>
               <View style={styles.column1}>
                 <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
-                <Dash style={styles.dash} dashGap={4} dashColor="grey" />
               </View>
 
               <View style={styles.column2}>
@@ -120,6 +146,7 @@ const GenerateScreen = ({ route }) => {
 
               <View style={styles.column3}>
                 <Text style={styles.text}>{startTime}</Text>
+                <Dash style={styles.dash} dashGap={4} dashColor="grey" />
               </View>
             </View>
           ))}
@@ -127,12 +154,20 @@ const GenerateScreen = ({ route }) => {
       ) : null}
       {numberOfRestaurants > 0 ? (
         <View style={{ flex: numberOfRestaurants }}>
-          <Text style={styles.textHeader}>Restauranter</Text>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.textHeader, { paddingLeft: 19 }]}>Restauranter</Text>
+            </View>
+
+            <View style={styles.dash2}>
+              <Dash style={styles.dash} dashGap={4} dashColor="grey" />
+            </View>
+          </View>
+
           {restaurants.map((restaurant) => (
             <View style={styles.row}>
               <View style={styles.column1}>
                 <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
-                <Dash style={styles.dash} dashGap={4} dashColor="grey" />
               </View>
 
               <View style={styles.column2}>
@@ -141,6 +176,7 @@ const GenerateScreen = ({ route }) => {
 
               <View style={styles.column3}>
                 <Text style={styles.text}>{startTime}</Text>
+                <Dash style={styles.dash} dashGap={4} dashColor="grey" />
               </View>
             </View>
           ))}
@@ -149,7 +185,15 @@ const GenerateScreen = ({ route }) => {
 
       {!isSingle ? (
         <>
-          <Text style={styles.textHeader}>Sexposisjon</Text>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.textHeader, { paddingLeft: 19 }]}>Sexposisjon</Text>
+            </View>
+
+            <View style={styles.dash2}>
+              <Dash style={styles.dash} dashGap={4} dashColor="grey" />
+            </View>
+          </View>
           <View style={styles.row}>
             <View style={styles.column1}>
               <Image style={styles.icon} source={require("../assets/icons/casualFin.png")} />
@@ -159,7 +203,9 @@ const GenerateScreen = ({ route }) => {
               <Text style={styles.text}>{sexPosition}</Text>
             </View>
 
-            <View style={styles.column3}></View>
+            <View style={styles.column3}>
+              <Text style={styles.text}>??:??</Text>
+            </View>
           </View>
         </>
       ) : null}
@@ -211,9 +257,15 @@ const styles = StyleSheet.create({
   },
   dash: {
     flexDirection: "column",
-    height: "100%",
+    flex: 1,
     borderRadius: 100,
-    paddingLeft: 12,
+    paddingRight: 17,
+    paddingTop: 4,
+  },
+  dash2: {
+    height: 19,
+    width: 19.2,
+    paddingTop: 0,
   },
   header: {
     width: "100%",
