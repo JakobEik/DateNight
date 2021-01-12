@@ -11,7 +11,7 @@ import mockdata from "../assets/data/mockdata";
 const CreateScreen = ({ route, navigation }) => {
   const { creator } = route.params;
   const [typeOfDate, setTypeOfDate] = useState("");
-  const [budget, setBudget] = useState("");
+  const [category, setCategory] = useState("");
   const [startTime, setStartTime] = useState("17:00");
 
   const randomCode = () => {
@@ -23,67 +23,86 @@ const CreateScreen = ({ route, navigation }) => {
 
   const theCode = randomCode();
 
-  const date = {
-    creator: creator,
-    dateType: typeOfDate,
-    budget: budget,
-    startTime: startTime,
-    code: theCode,
-  };
-
   const whenPressed = () => {
-    if (date.dateType == "") {
+    let single;
+    if (typeOfDate === "" || category === "") {
       Alert.alert("Obsobs", "Vennligst fyll ut alle feltene");
     } else {
-      navigation.navigate("Lobby", { name: creator, code: theCode });
-      console.log(date);
+      if (category === "halfPlan") {
+        typeOfDate === "Singel" ? (single = true) : (single = false);
+        navigation.navigate("Generate", {
+          name: creator,
+          isSingle: single,
+          numberOfBars: 3,
+          numberOfRestaurants: 1,
+          hasDrink: true,
+          hasOutfit: true,
+          startTime: startTime,
+        });
+      }
+
+      //console.log(date);
     }
   };
 
   return (
     <Container>
-      <View style={styles.container}>
-        <View style={styles.text}>
-          <Text style={{ fontSize: 20 }}>Who you gonna date?</Text>
-        </View>
-
-        {/*prettier-ignore */}
-        <View style={styles.types}>
-
-          <TypeButton
-            onPress={() => {setTypeOfDate("Singel");}}
-            style={{backgroundColor: typeOfDate == "Singel" ? colors.red : colors.blue}}
-            title="Random"
-          />
-          <TypeButton 
-            onPress={() => {setTypeOfDate("Dama");}}
-            style={{backgroundColor: typeOfDate == "Dama" ? colors.red : colors.blue}}
-            title="Kjæresten"
-          />
-
+      <View style={styles.text}>
+        <Text style={{ fontSize: 20 }}>Who you gonna date?</Text>
       </View>
 
-        <View style={styles.textTime}>
-          <Text style={{ fontSize: 20 }}>Startstidspunkt</Text>
-        </View>
+      {/*prettier-ignore */}
+      <View style={styles.whoDate}>
+        <TypeButton
+          onPress={() => {setTypeOfDate("Singel");}}
+          style={{backgroundColor: typeOfDate == "Singel" ? colors.red : colors.blue, width: "40%", height: "20%"}}
+          title="Random"
+        />
+        <TypeButton 
+          onPress={() => {setTypeOfDate("Dama");}}
+          style={{backgroundColor: typeOfDate == "Dama" ? colors.red : colors.blue, width: "40%", height: "20%"}}
+          title="Kjæresten"
+        />
+      </View>
+      {/*prettier-ignore */}
+      <View style={styles.category}>
+        <TypeButton 
+          onPress={() => {setCategory("fullPlan")}}
+          style={{ backgroundColor: category == "fullPlan" ? colors.red : colors.blue, width: "25%", height: "45%"}}
+          title="FullPlan"
+        />
+        <TypeButton 
+          onPress={() => {setCategory("halfPlan")}}
+          style={{ backgroundColor: category == "halfPlan" ? colors.red : colors.blue, width: "25%", height: "45%"}}
+          title="halfPlan"
+        />
+        <TypeButton 
+          onPress={() => {setCategory("noPlan")}}
+          style={{ backgroundColor: category == "noPlan" ? colors.red : colors.blue, width: "25%", height: "45%"}}
+          title="noPlan"        
+        />
+      </View>
 
-        <View style={styles.timeContainer}>
-          <Picker
-            selectedValue={startTime}
-            style={{ height: 50, width: 150 }}
-            onValueChange={(itemValue) => setStartTime(itemValue)}
-          >
-            {mockdata.times.map((time) => (
-              <Picker.Item label={time} value={time} />
-            ))}
-          </Picker>
-        </View>
+      <View style={styles.textTime}>
+        <Text style={{ fontSize: 20 }}>Startstidspunkt</Text>
+      </View>
 
-        <View style={styles.buttonContainer}>
-          <StartButton title="Lets go" onPress={whenPressed}>
-            LETS GO
-          </StartButton>
-        </View>
+      <View style={styles.timeContainer}>
+        <Picker
+          selectedValue={startTime}
+          style={{ height: 50, width: 150 }}
+          onValueChange={(itemValue) => setStartTime(itemValue)}
+        >
+          {mockdata.timesHalf.map((time) => (
+            <Picker.Item label={time} value={time} />
+          ))}
+        </Picker>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <StartButton title="Lets go" onPress={whenPressed}>
+          LETS GO
+        </StartButton>
       </View>
     </Container>
   );
@@ -93,21 +112,22 @@ const styles = StyleSheet.create({
   buttonContainer: {
     justifyContent: "center",
     alignItems: "center",
+    flex: 2,
+  },
+  category: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
     flex: 1,
   },
-  container: {
-    flex: 1,
-    justifyContent: "space-between",
-    alignContent: "center",
-  },
+
   timeContainer: {
-    flex: 1,
+    flex: 3,
     alignItems: "center",
   },
   text: {
-    justifyContent: "center",
     alignItems: "center",
     flex: 1,
+    justifyContent: "flex-end",
   },
 
   textTime: {
@@ -115,11 +135,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  types: {
+  whoDate: {
     flexDirection: "row",
+    flex: 3,
     alignItems: "center",
-    justifyContent: "space-evenly",
-    flex: 1,
+    justifyContent: "space-around",
   },
 });
 

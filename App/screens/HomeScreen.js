@@ -46,49 +46,41 @@ const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <Container>
-      <View style={styles.background}>
-        <View>
-          <Text>Logo placeholder</Text>
-        </View>
-
-        <View style={styles.textView}>
-          <TextInput
-            style={[
-              styles.textInput,
-              { borderColor: isPressed == true && userName.length < 2 ? "#FF0017" : "#004DCF" },
-            ]}
-            placeholder="Navn"
-            onChangeText={(input) => setUserName(input)}
-            value={userName}
-            clearButtonMode="while-editing"
-            maxLength={20}
-            textAlign="center"
-            textContentType="nickname"
-          />
-        </View>
-
-        <StartButton style={styles.btnCreate} onPress={checkCreateSubmit}>
-          Lag en date
-        </StartButton>
-
-        <StartButton onPress={checkJoinSubmit}>Bli med på date</StartButton>
+    <Container style={styles.container}>
+      <View>
+        <Text>Logo placeholder</Text>
       </View>
+
+      <View style={styles.textView}>
+        <TextInput
+          style={[styles.textInput, { borderColor: isPressed == true && userName.length < 2 ? "#FF0017" : "#004DCF" }]}
+          placeholder="Navn"
+          onChangeText={(input) => setUserName(input)}
+          value={userName}
+          clearButtonMode="while-editing"
+          maxLength={20}
+          textAlign="center"
+          textContentType="nickname"
+        />
+      </View>
+
+      <StartButton style={styles.btnCreate} onPress={checkCreateSubmit}>
+        Lag en date
+      </StartButton>
+
+      {/* <StartButton onPress={checkJoinSubmit}>Bli med på date</StartButton>*/}
     </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "space-evenly",
-  },
-
   btnCreate: {
     marginTop: "0%",
   },
-
+  container: {
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
   textInput: {
     borderWidth: 1,
     width: "50%",
@@ -96,7 +88,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     fontSize: 20,
   },
-
   textView: {
     width: "100%",
     alignItems: "center",
